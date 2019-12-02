@@ -9,7 +9,7 @@ class ClientHandler {
     companion object {
         private const val port: Int = 8100
         private const val IP: String = "127.0.0.1"
-        private var logger = Logger()
+        private var logger = Logger
 
         @JvmStatic
         fun main(arg: Array<String>) {
@@ -19,6 +19,7 @@ class ClientHandler {
                 while (serverSocket.isBound) {
                     val clientRequest = serverSocket.accept()
                     logger.info("${clientRequest.remoteSocketAddress} is connected")
+                    HttpRequestHeader.init(clientRequest.getInputStream())
                 }
             }catch (io : IOException){
                 logger.warning("${io.message}")
